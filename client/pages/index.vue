@@ -101,6 +101,7 @@ export default class extends Vue {
 
   onReceivePage(page: number) {
     this.pageNumber = page
+    this.$vuetify.goTo(0)
   }
 
   initializeApiList() {
