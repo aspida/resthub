@@ -31,7 +31,10 @@
             class="pl-3 endpoint-anker"
             :href="`#${gIndex}_${idx}`"
           >
-            <span :class="`action-name ${flatPathsObj.method}`">
+            <span
+              :class="`action-name ${flatPathsObj.method}`"
+              :style="`color: ${methodColors[flatPathsObj.method]};`"
+            >
               {{ flatPathsObj.method }}
             </span>
             <span class="text--darken-1-grey" :name="flatPathsObj.path">
@@ -45,11 +48,18 @@
 </template>
 
 <script>
+import methodColors from '../../../utils/methodColors.js'
+
 export default {
   props: {
     flatPathsObjGroups: {
       type: Array,
       required: true
+    }
+  },
+  data() {
+    return {
+      methodColors
     }
   }
 }
@@ -89,20 +99,5 @@ export default {
   display: inline-block;
   min-width: 35px;
   margin-left: 20px;
-}
-.get {
-  color: #5c81ff;
-}
-.post {
-  color: #5bc45b;
-}
-.put {
-  color: #ff9c38;
-}
-.delete {
-  color: #ffadad;
-}
-.patch {
-  color: #a956f6;
 }
 </style>

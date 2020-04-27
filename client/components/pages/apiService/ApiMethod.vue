@@ -1,15 +1,25 @@
 <template>
   <div class="api-container">
-    <div class="api-title" @click="isOpened = !isOpened">
-      <h5 v-if="flatPathsObj.method" :class="[flatPathsObj.method, 'method']">
-        <p style="color: #fff;">{{ flatPathsObj.method }}</p>
-      </h5>
-      <h4 class="api-path">
-        <p>{{ flatPathsObj.path }}</p>
-      </h4>
+    <div
+      :class="['api-title', isOpened && 'is-opened']"
+      @click="isOpened = !isOpened"
+    >
+      <div
+        v-if="flatPathsObj.method"
+        :class="[flatPathsObj.method, 'method']"
+        :style="`background-color: ${methodColors[flatPathsObj.method]};`"
+      >
+        {{ flatPathsObj.method }}
+      </div>
+      <div class="api-path">
+        {{ flatPathsObj.path }}
+      </div>
       <p v-if="existsKey(flatPathsObj.opeObj, 'summary')" class="summary">
         {{ flatPathsObj.opeObj.summary }}
       </p>
+      <div class="v-input__icon v-input__icon--append menu-down-wrapper">
+        <i class="v-icon notranslate mdi mdi-menu-down theme--light"></i>
+      </div>
     </div>
     <div v-if="isOpened" class="api-detail">
       <div
@@ -20,16 +30,16 @@
         <div v-html="$md.render(flatPathsObj.opeObj.description)" />
       </div>
       <div>
-        <h6>Parameters</h6>
+        <div class="sab-title">Parameters</div>
         <div v-if="existsKey(flatPathsObj.opeObj, 'parameters')">
           <api-parameters :parameters="flatPathsObj.opeObj.parameters" />
         </div>
         <div v-else>
-          <p>No Parameters</p>
+          No Parameters
         </div>
       </div>
       <div v-if="existsKey(flatPathsObj.opeObj, 'requestBody')">
-        <h6>RequestBody</h6>
+        <div class="sab-title">RequestBody</div>
         <api-request-body
           :app-title="appTitle"
           :method="flatPathsObj.method"
@@ -39,7 +49,7 @@
         />
       </div>
       <div>
-        <h6>Example: Request statement by Aspida</h6>
+        <div class="sab-title">Example: Request statement by Aspida</div>
         <example-using-aspida
           :app-title="appTitle"
           :method="flatPathsObj.method"
@@ -49,7 +59,7 @@
         />
       </div>
       <div v-if="existsKey(flatPathsObj.opeObj, 'responses')">
-        <h6>Responses</h6>
+        <div class="sab-title">Responses</div>
         <table style="width: 100%;">
           <tr>
             <th style="width: 20%;">StatusCode</th>
@@ -74,6 +84,7 @@
   </div>
 </template>
 <script>
+import methodColors from '../../../utils/methodColors.js'
 import ApiRequestBody from '~/components/pages/apiService/ApiRequestBody.vue'
 import ExampleUsingAspida from '~/components/pages/apiService/ExampleUsingAspida.vue'
 import ApiParameters from '~/components/pages/apiService/ApiParameters.vue'
@@ -99,7 +110,8 @@ export default {
   },
   data() {
     return {
-      isOpened: false
+      isOpened: false,
+      methodColors
     }
   },
   computed: {
@@ -126,6 +138,11 @@ export default {
 }
 </script>
 <style scoped>
+.sab-title {
+  padding: 12px 0 10px;
+  font-size: 1em;
+  font-weight: 500;
+}
 .api-container {
   margin-top: -1px;
   font-size: 11pt;
@@ -134,55 +151,45 @@ export default {
 }
 .api-title {
   display: grid;
-  grid-template-columns: 50px 1fr 1fr;
-  align-items: center;
-  padding: 5px 20px;
+  grid-template-columns: 50px 1fr 1fr 30px;
+  align-self: center;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+.is-opened {
   border-bottom: thin solid #c0c0c0;
+}
+.menu-down-wrapper {
+  grid-column: 4/5;
+}
+.is-opened .mdi-menu-down {
+  transform: rotate(180deg);
 }
 .api-detail {
   padding: 5px 20px;
 }
 .method {
   grid-column: 1/2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 20px;
+  width: 52px;
+  height: 22px;
+  font-size: 0.83em;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
   border-radius: 5px;
 }
 .api-path {
   grid-column: 2/3;
-  padding: 2px;
-  line-height: 100%;
+  margin-left: 12px;
+  font-weight: 600;
 }
 .summary {
   grid-column: 3/4;
-}
-.get {
-  background-color: #5c81ff;
-}
-.post {
-  background-color: #5bc45b;
-}
-.put {
-  background-color: #ff9c38;
-}
-.delete {
-  background-color: #ffadad;
+  margin-bottom: unset;
 }
 table {
   font-size: 13px;
   table-layout: fixed;
   border-collapse: collapse;
-}
-p {
-  margin: 0;
-}
-h4 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 14px;
 }
 </style>

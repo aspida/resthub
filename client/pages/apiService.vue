@@ -165,7 +165,9 @@ export default {
   text-align: left;
   background: #fff;
 }
-
+.api-tag {
+  padding: 15px 0 10px;
+}
 .main {
   padding: 30px;
   margin: 65px 0 60px 300px;
