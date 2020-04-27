@@ -158,6 +158,7 @@ export default {
 }
 </script>
 <style scoped>
+@import 'highlight.js/styles/vs2015.css';
 p {
   margin: 0;
 }
