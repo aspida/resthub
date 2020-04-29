@@ -84,7 +84,7 @@
   </div>
 </template>
 <script>
-import methodColors from '../../../utils/methodColors.js'
+import { METHOD_COLORS } from '~/utils/constants'
 import ApiRequestBody from '~/components/pages/apiService/ApiRequestBody.vue'
 import ExampleUsingAspida from '~/components/pages/apiService/ExampleUsingAspida.vue'
 import ApiParameters from '~/components/pages/apiService/ApiParameters.vue'
@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       isOpened: false,
-      methodColors
+      methodColors: METHOD_COLORS
     }
   },
   computed: {

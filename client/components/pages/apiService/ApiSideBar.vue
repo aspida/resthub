@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import methodColors from '../../../utils/methodColors.js'
+import { METHOD_COLORS } from '~/utils/constants'
 
 export default {
   props: {
@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      methodColors
+      methodColors: METHOD_COLORS
     }
   }
 }

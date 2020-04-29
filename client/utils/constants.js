@@ -1,4 +1,4 @@
-export default {
+export const METHOD_COLORS = {
   get: '#5c81ff',
   post: '#5bc45b',
   put: '#ff9c38',
